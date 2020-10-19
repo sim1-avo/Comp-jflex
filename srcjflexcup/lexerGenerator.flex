@@ -11,7 +11,7 @@ import java_cup.runtime.Symbol;
 %unicode
 %line
 %column
-
+/*
 %{
       StringBuffer string = new StringBuffer();
 
@@ -31,14 +31,14 @@ import java_cup.runtime.Symbol;
       }
 
 
-%}
+%}*/
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 WhiteSpace = {LineTerminator} | [ \t\f]
 
 Identifier = [:jletter:] [:jletterdigit:]*
-IntegerLiteral = 0 | [1-9][0-9]*
-FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
+IntegerLiteral = 0|[1-9][0-9]*
+FloatNumber = (0|[1-9][0-9]*)\.[0-9]*[1-9]+
 
 %state STRING
 %%
@@ -73,9 +73,9 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
   {Identifier}          { System.out.println("("+Token.ID+", \""+ yytext()+"\")"); }
 
   /* literals */
-  {IntegerLiteral}   { System.out.println("("+Token.NUM+", \""+ yytext())+"\")"; }
-  {FloatNumber}   { System.out.println("("+Token.NUM+", \""+ yytext())+"\")"; }
-*/
+  {IntegerLiteral}   { System.out.println("("+Token.NUM+", \""+ yytext()+"\")"); }
+  {FloatNumber}   { System.out.println("("+Token.NUM+", \""+ yytext()+"\")"); }
+
 
   /* whitespace */
   {WhiteSpace} { /* ignore */ }
