@@ -44,36 +44,36 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
 <YYINITIAL> {
 
   /* keywords */
-  "if" { System.out.println(Token.IF); }
-  "then" { System.out.println(Token.THEN); }
-  "else" { System.out.println(Token.ELSE); }
-  "while" { System.out.println(Token.WHILE); }
-  "int" { System.out.println(Token.INT); }
-  "float" { System.out.println(Token.FLOAT); }
+  "if" { System.out.println("("+Token.IF+")"); }
+  "then" { System.out.println("("+Token.THEN+")"); }
+  "else" { System.out.println("("+Token.ELSE+")"); }
+  "while" { System.out.println("("+Token.WHILE+")"); }
+  "int" { System.out.println("("+Token.INT+")"); }
+  "float" { System.out.println("("+Token.FLOAT+")"); }
 
-  /* separators
-  "(" { return generateToken(Token.LPAR); }
-  ")" { return generateToken(Token.RPAR); }
-  "{" { return generateToken(Token.LBRA); }
-  "}" { return generateToken(Token.RBRA); }
-  "," { return generateToken(Token.COMMA); }
-  ";" { return generateToken(Token.SEMI); }
+  /* separators */
+  "(" { System.out.println("("+Token.LPAR+")"); }
+  ")" { System.out.println("("+Token.RPAR+")"); }
+  "{" { System.out.println("("+Token.LBRA+")"); }
+  "}" { System.out.println("("+Token.RBRA+")"); }
+  "," { System.out.println("("+Token.COMMA+")"); }
+  ";" { System.out.println("("+Token.SEMI+")"); }
 
-  /* relop
-  "<" { return generateToken(Token.LT); }
-  "<=" { return generateToken(Token.LE); }
-  "==" { return generateToken(Token.EQ); }
-  "!=" { return generateToken(Token.NE); }
-  ">" { return generateToken(Token.GT); }
-  ">=" { return generateToken(Token.GE); }
-  "<--" { return generateToken(Token.ASSIGN); }
+  /* relop */
+  "<" { System.out.println("("+Token.LT+")"); }
+  "<=" { System.out.println("("+Token.LE+")"); }
+  "==" { System.out.println("("+Token.EQ+")"); }
+  "!=" { System.out.println("("+Token.NE+")"); }
+  ">" { System.out.println("("+Token.GT+")"); }
+  ">=" { System.out.println("("+Token.GE+")"); }
+  "<--" { System.out.println("("+Token.ASSIGN+")"); }
 
-  /* identifiers
-  {Identifier}          { return generateToken(Token.ID, yytext()); }
+  /* identifiers */
+  {Identifier}          { System.out.println("("+Token.ID+", \""+ yytext()+"\")"); }
 
-  /* literals
-  {IntegerLiteral}   { return generateToken(Token.NUM, Integer.parseInt(yytext())); }
-  {FloatNumber}   { return generateToken(Token.NUM, Double.parseDouble(yytext())); }
+  /* literals */
+  {IntegerLiteral}   { System.out.println("("+Token.NUM+", \""+ yytext())+"\")"; }
+  {FloatNumber}   { System.out.println("("+Token.NUM+", \""+ yytext())+"\")"; }
 */
 
   /* whitespace */
@@ -82,5 +82,3 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
 /* error fallback */
 [^] { throw new Error("Illegal character <"+
 yytext()+">"); }
-/*end of file*/
-//<<EOF>> {return new Symbol(Token.EOF);}
