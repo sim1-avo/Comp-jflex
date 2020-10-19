@@ -25,6 +25,7 @@ import java_cup.runtime.Symbol;
       private Symbol generateError() {
         return new Symbol(Token.ERROR, yyline, yycolumn);
       }
+
       private Symbol generateError(Object value) {
         return new Symbol(Token.ERROR, yyline, yycolumn, value);
       }
@@ -80,5 +81,4 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
   {WhiteSpace} { /* ignore */ }
 }
 /* error fallback */
-[^] { throw new Error("Illegal character <"+
-yytext()+">"); }
+[^] { System.out.println("("+Token.ERROR+", \""+yytext()+"\") Position "+yyline+":"+yycolumn); }
