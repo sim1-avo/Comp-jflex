@@ -22,13 +22,14 @@ import java_cup.runtime.Symbol;
         return new Symbol(type, value);
       }
 
+      /*
       private Symbol generateError() {
         return new Symbol(Token.ERROR, yyline, yycolumn);
       }
 
       private Symbol generateError(Object value) {
         return new Symbol(Token.ERROR, yyline, yycolumn, value);
-      }
+      }*/
 
 
 %}
@@ -38,47 +39,46 @@ WhiteSpace = {LineTerminator} | [ \t\f]
 
 Identifier = [:jletter:] [:jletterdigit:]*
 IntegerLiteral = 0 | [1-9][0-9]*
-FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
+FloatNumber = (0|[1-9][0-9]*)\.[0-9]*[1-9]+
 
 %state STRING
 %%
 <YYINITIAL> {
 
   /* keywords */
-  "if" { System.out.println("("+Token.IF+")"); }
-  "then" { System.out.println("("+Token.THEN+")"); }
-  "else" { System.out.println("("+Token.ELSE+")"); }
-  "while" { System.out.println("("+Token.WHILE+")"); }
-  "int" { System.out.println("("+Token.INT+")"); }
-  "float" { System.out.println("("+Token.FLOAT+")"); }
+  "if" { System.out.println("("+Sym.IF+")"); }
+  "then" { System.out.println("("+Sym.THEN+")"); }
+  "else" { System.out.println("("+Sym.ELSE+")"); }
+  "while" { System.out.println("("+Sym.WHILE+")"); }
+  "int" { System.out.println("("+Sym.INT+")"); }
+  "float" { System.out.println("("+Sym.FLOAT+")"); }
 
   /* separators */
-  "(" { System.out.println("("+Token.LPAR+")"); }
-  ")" { System.out.println("("+Token.RPAR+")"); }
-  "{" { System.out.println("("+Token.LBRA+")"); }
-  "}" { System.out.println("("+Token.RBRA+")"); }
-  "," { System.out.println("("+Token.COMMA+")"); }
-  ";" { System.out.println("("+Token.SEMI+")"); }
+  "(" { System.out.println("("+Sym.LPAR+")"); }
+  ")" { System.out.println("("+Sym.RPAR+")"); }
+  "{" { System.out.println("("+Sym.LBRA+")"); }
+  "}" { System.out.println("("+Sym.RBRA+")"); }
+  "," { System.out.println("("+Sym.COMMA+")"); }
+  ";" { System.out.println("("+Sym.SEMI+")"); }
 
   /* relop */
-  "<" { System.out.println("("+Token.LT+")"); }
-  "<=" { System.out.println("("+Token.LE+")"); }
-  "==" { System.out.println("("+Token.EQ+")"); }
-  "!=" { System.out.println("("+Token.NE+")"); }
-  ">" { System.out.println("("+Token.GT+")"); }
-  ">=" { System.out.println("("+Token.GE+")"); }
-  "<--" { System.out.println("("+Token.ASSIGN+")"); }
+  "<" { System.out.println("("+Sym.LT+")"); }
+  "<=" { System.out.println("("+Sym.LE+")"); }
+  "==" { System.out.println("("+Sym.EQ+")"); }
+  "!=" { System.out.println("("+Sym.NE+")"); }
+  ">" { System.out.println("("+Sym.GT+")"); }
+  ">=" { System.out.println("("+Sym.GE+")"); }
+  "<--" { System.out.println("("+Sym.ASSIGN+")"); }
 
   /* identifiers */
-  {Identifier}          { System.out.println("("+Token.ID+", \""+ yytext()+"\")"); }
+  {Identifier}          { System.out.println("("+Sym.ID+", \""+ yytext()+"\")"); }
 
   /* literals */
-  {IntegerLiteral}   { System.out.println("("+Token.NUM+", \""+ yytext())+"\")"; }
-  {FloatNumber}   { System.out.println("("+Token.NUM+", \""+ yytext())+"\")"; }
-*/
+  {IntegerLiteral}   { System.out.println("("+Sym.NUM+", \""+ yytext()+"\")"); }
+  {FloatNumber}   { System.out.println("("+Sym.NUM+", \""+ yytext()+"\")"); }
 
   /* whitespace */
   {WhiteSpace} { /* ignore */ }
 }
 /* error fallback */
-[^] { System.out.println("("+Token.ERROR+", \""+yytext()+"\") Position "+yyline+":"+yycolumn); }
+[^] { System.out.println("("+Sym.ERROR+", \""+yytext()+"\") Position "+yyline+":"+yycolumn); }

@@ -1,4 +1,4 @@
-public class Token{
+public class Sym {
     /*Keywords*/
     public static final String IF="IF";
     public static final String THEN="THEN";
@@ -9,27 +9,27 @@ public class Token{
     public static final String NUM="NUM";
 
     /*Separators*/
-    public static final String LPAR="(";
-    public static final String RPAR=")";
-    public static final String LBRA="{";
-    public static final String RBRA="}";
-    public static final String COMMA=",";
-    public static final String SEMI=";";
+    public static final String LPAR="LPAR";
+    public static final String RPAR="RPAR";
+    public static final String LBRA="LBRA";
+    public static final String RBRA="RBRA";
+    public static final String COMMA="COMMA";
+    public static final String SEMI="SEMI";
 
     /*Operators*/
-    public static final String LT="<";
-    public static final String LE="<=";
-    public static final String EQ="==";
-    public static final String NE="!=";
-    public static final String GT=">";
-    public static final String GE=">=";
-    public static final String ASSIGN="<--";
+    public static final String LT="LT";
+    public static final String LE="LE";
+    public static final String EQ="EQ";
+    public static final String NE="NE";
+    public static final String GT="GT";
+    public static final String GE="GE";
+    public static final String ASSIGN="ASSIGN";
 
     /*Intifier*/
     public static final String ID="ID";
 
     /*error*/
-    public static final String ERROR="Error";
+    public static final String ERROR="ERROR";
 
 
     public static final String[] terminalNames= new String[]{
