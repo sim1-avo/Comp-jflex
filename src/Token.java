@@ -6,40 +6,38 @@ public class Token{
     public static final String WHILE="WHILE";
     public static final String INT="INT";
     public static final String FLOAT="FLOAT";
-    public static final int NUM=6;
+    public static final String NUM="NUM";
 
     /*Separators*/
-    public static final int LPAR=7;
-    public static final int RPAR=8;
-    public static final int LBRA=9;
-    public static final int RBRA=10;
-    public static final int COMMA=11;
-    public static final int SEMI=12;
+    public static final String LPAR="(";
+    public static final String RPAR=")";
+    public static final String LBRA="{";
+    public static final String RBRA="}";
+    public static final String COMMA=",";
+    public static final String SEMI=";";
 
     /*Operators*/
-    public static final int LT=13;
-    public static final int LE=14;
-    public static final int EQ=15;
-    public static final int NE=16;
-    public static final int GT=17;
-    public static final int GE=18;
-    public static final int ASSIGN=19;
+    public static final String LT="<";
+    public static final String LE="<=";
+    public static final String EQ="==";
+    public static final String NE="!=";
+    public static final String GT=">";
+    public static final String GE=">=";
+    public static final String ASSIGN="<--";
 
     /*Intifier*/
-    public static final int ID=20;
+    public static final String ID="ID";
 
     /*error*/
-    public static final int ERROR=21;
-    /*eof*/
-    public static final int EOF=22;
+    public static final String ERROR="Error";
+
 
     public static final String[] terminalNames= new String[]{
             "IF","THEN", "ELSE", "WHILE", "INT", "FLOAT", "NUM",
             "LPAR", "RPAR", "LBRA", "RBRA","COMMA", "SEMI",
             "LT", "LE", "EQ", "NE", "GT", "GE", "ASSIGN",
             "ID",
-            "ERROR",
-            "EOF"
+            "ERROR"
     };
 
 }
