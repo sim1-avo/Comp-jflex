@@ -1,5 +1,7 @@
 /* JFlex example: part of Java language lexer specification */
-import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
+
+
 /**
 * This class is a simple example lexer.
 */
@@ -14,10 +16,10 @@ import java_cup.runtime.*;
       StringBuffer string = new StringBuffer();
 
       private Symbol generateToken(int type) {
-        return new Symbol(type, yyline, yycolumn);
+        return new Symbol(type);
       }
       private Symbol generateToken(int type, Object value) {
-        return new Symbol(type, yyline, yycolumn, value);
+        return new Symbol(type, value);
       }
 
       private Symbol generateError() {
@@ -42,14 +44,14 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
 <YYINITIAL> {
 
   /* keywords */
-  "if" { return generateToken(Token.IF); }
-  "then" { return generateToken(Token.THEN); }
-  "else" { return generateToken(Token.ELSE); }
-  "while" { return generateToken(Token.WHILE); }
-  "int" { return generateToken(Token.INT); }
-  "float" { return generateToken(Token.FLOAT); }
+  "if" { System.out.println(Token.IF); }
+  "then" { System.out.println(Token.THEN); }
+  "else" { System.out.println(Token.ELSE); }
+  "while" { System.out.println(Token.WHILE); }
+  "int" { System.out.println(Token.INT); }
+  "float" { System.out.println(Token.FLOAT); }
 
-  /* separators */
+  /* separators
   "(" { return generateToken(Token.LPAR); }
   ")" { return generateToken(Token.RPAR); }
   "{" { return generateToken(Token.LBRA); }
@@ -57,7 +59,7 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
   "," { return generateToken(Token.COMMA); }
   ";" { return generateToken(Token.SEMI); }
 
-  /* relop */
+  /* relop
   "<" { return generateToken(Token.LT); }
   "<=" { return generateToken(Token.LE); }
   "==" { return generateToken(Token.EQ); }
@@ -66,13 +68,13 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
   ">=" { return generateToken(Token.GE); }
   "<--" { return generateToken(Token.ASSIGN); }
 
-  /* identifiers */
+  /* identifiers
   {Identifier}          { return generateToken(Token.ID, yytext()); }
 
-  /* literals */
+  /* literals
   {IntegerLiteral}   { return generateToken(Token.NUM, Integer.parseInt(yytext())); }
   {FloatNumber}   { return generateToken(Token.NUM, Double.parseDouble(yytext())); }
-
+*/
 
   /* whitespace */
   {WhiteSpace} { /* ignore */ }
@@ -81,4 +83,4 @@ FloatNumber = 0 | [1-9][0-9]* \.[0-9]*[1-9]+
 [^] { throw new Error("Illegal character <"+
 yytext()+">"); }
 /*end of file*/
-<<EOF>> {return new Symbol(Token.EOF);}
+//<<EOF>> {return new Symbol(Token.EOF);}

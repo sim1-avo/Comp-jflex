@@ -1,11 +1,11 @@
 public class Token{
     /*Keywords*/
-    public static final int IF=0;
-    public static final int THEN=1;
-    public static final int ELSE=2;
-    public static final int WHILE=3;
-    public static final int INT=4;
-    public static final int FLOAT=5;
+    public static final String IF="IF";
+    public static final String THEN="THEN";
+    public static final String ELSE="ELSE";
+    public static final String WHILE="WHILE";
+    public static final String INT="INT";
+    public static final String FLOAT="FLOAT";
     public static final int NUM=6;
 
     /*Separators*/
