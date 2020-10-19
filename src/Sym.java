@@ -1,6 +1,7 @@
 public class Sym {
     /*Keywords*/
     public static final String IF="IF";
+
     public static final String THEN="THEN";
     public static final String ELSE="ELSE";
     public static final String WHILE="WHILE";
