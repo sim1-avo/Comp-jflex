@@ -7,7 +7,7 @@ import java_cup.runtime.Symbol;
 */
 %%
 %class Lexer
-%standalone
+%cup
 %unicode
 %line
 %column
@@ -22,14 +22,9 @@ import java_cup.runtime.Symbol;
         return new Symbol(type, value);
       }
 
-      /*
-      private Symbol generateError() {
-        return new Symbol(Token.ERROR, yyline, yycolumn);
-      }
-
       private Symbol generateError(Object value) {
-        return new Symbol(Token.ERROR, yyline, yycolumn, value);
-      }*/
+        return new Symbol(Sym.ERROR, yyline, yycolumn, value);
+      }
 
 
 %}
@@ -46,39 +41,42 @@ FloatNumber = (0|[1-9][0-9]*)\.[0-9]*[1-9]+
 <YYINITIAL> {
 
   /* keywords */
-  "if" { System.out.println("("+Sym.IF+")"); }
-  "then" { System.out.println("("+Sym.THEN+")"); }
-  "else" { System.out.println("("+Sym.ELSE+")"); }
-  "while" { System.out.println("("+Sym.WHILE+")"); }
-  "int" { System.out.println("("+Sym.INT+")"); }
-  "float" { System.out.println("("+Sym.FLOAT+")"); }
+  "if" { return generateToken(Sym.IF); }
+  "then" { return generateToken(Sym.THEN); }
+  "else" { return generateToken(Sym.ELSE); }
+  "while" { return generateToken(Sym.WHILE); }
+  "int" { return generateToken(Sym.INT); }
+  "float" { return generateToken(Sym.FLOAT); }
 
   /* separators */
-  "(" { System.out.println("("+Sym.LPAR+")"); }
-  ")" { System.out.println("("+Sym.RPAR+")"); }
-  "{" { System.out.println("("+Sym.LBRA+")"); }
-  "}" { System.out.println("("+Sym.RBRA+")"); }
-  "," { System.out.println("("+Sym.COMMA+")"); }
-  ";" { System.out.println("("+Sym.SEMI+")"); }
+  "(" { return generateToken(Sym.LPAR); }
+  ")" { return generateToken(Sym.RPAR); }
+  "{" { return generateToken(Sym.LBRA); }
+  "}" { return generateToken(Sym.RBRA); }
+  "," { return generateToken(Sym.COMMA); }
+  ";" { return generateToken(Sym.SEMI); }
 
   /* relop */
-  "<" { System.out.println("("+Sym.LT+")"); }
-  "<=" { System.out.println("("+Sym.LE+")"); }
-  "==" { System.out.println("("+Sym.EQ+")"); }
-  "!=" { System.out.println("("+Sym.NE+")"); }
-  ">" { System.out.println("("+Sym.GT+")"); }
-  ">=" { System.out.println("("+Sym.GE+")"); }
-  "<--" { System.out.println("("+Sym.ASSIGN+")"); }
+  "<" { return generateToken(Sym.LessThan); }
+  "<=" { return generateToken(Sym.LessEqual); }
+  "==" { return generateToken(Sym.EQ); }
+  "!=" { return generateToken(Sym.NotEqual); }
+  ">" { return generateToken(Sym.GraterThan); }
+  ">=" { return generateToken(Sym.GraterEqual); }
+  "<--" { return generateToken(Sym.ASSIGN); }
 
   /* identifiers */
-  {Identifier}          { System.out.println("("+Sym.ID+", \""+ yytext()+"\")"); }
+  {Identifier}          { return generateToken(Sym.ID, yytext()); }
 
   /* literals */
-  {IntegerLiteral}   { System.out.println("("+Sym.NUM+", \""+ yytext()+"\")"); }
-  {FloatNumber}   { System.out.println("("+Sym.NUM+", \""+ yytext()+"\")"); }
+  {IntegerLiteral}   { return generateToken(Sym.NUM, Integer.parseInt(yytext())); }
+  {FloatNumber}   { return generateToken(Sym.NUM, Double.parseDouble(yytext())); }
+
 
   /* whitespace */
   {WhiteSpace} { /* ignore */ }
 }
 /* error fallback */
-[^] { System.out.println("("+Sym.ERROR+", \""+yytext()+"\") Position "+yyline+":"+yycolumn); }
+[^] { return generateError(yytext()); }
+
+<<EOF>> {return new Symbol(Sym.EOF);}
