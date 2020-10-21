@@ -1,5 +1,6 @@
 /* JFlex example: part of Java language lexer specification */
-import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
+import java.util.ArrayList;
 
 
 /**
@@ -14,13 +15,20 @@ import java_cup.runtime.Symbol;
 
 %{
       StringBuffer string = new StringBuffer();
+      public ArrayList<String> SymbolTable= new ArrayList<String>();
 
       private Symbol generateToken(int type) {
         return new Symbol(type);
       }
       private Symbol generateToken(int type, Object value) {
-        return new Symbol(type, value);
-      }
+              if(type==20 && !SymbolTable.contains(value.toString())){
+                SymbolTable.add(value.toString());
+              }
+              if(type==6){
+                  SymbolTable.add(value.toString());
+              }
+              return new Symbol(type, SymbolTable.indexOf(value.toString()));
+            }
 
       private Symbol generateError(Object value) {
         return new Symbol(Sym.ERROR, yyline, yycolumn, value);
@@ -66,7 +74,7 @@ FloatNumber = (0|[1-9][0-9]*)\.[0-9]*[1-9]+
   "<--" { return generateToken(Sym.ASSIGN); }
 
   /* identifiers */
-  {Identifier}          { return generateToken(Sym.ID, yytext()); }
+  {Identifier}          { return generateToken(Sym.ID, yytext());}
 
   /* literals */
   {IntegerLiteral}   { return generateToken(Sym.NUM, Integer.parseInt(yytext())); }

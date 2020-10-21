@@ -17,6 +17,12 @@ public class Tester {
                 if (s.value != null) System.out.println("("+Sym.terminalNames[s.sym]+", \""+s.value.toString()+"\")");
                 else System.out.println("("+Sym.terminalNames[s.sym]+")");
             }
+
         }
+        System.out.println("---------------Symbol Table---------------");
+        for(int i=0; i<lex.SymbolTable.size(); i++){
+            System.out.println("|   ("+i+" , "+ lex.SymbolTable.get(i) +")  ");
+        }
+        System.out.println("-------------End Symbol Table-------------");
     }
 }
